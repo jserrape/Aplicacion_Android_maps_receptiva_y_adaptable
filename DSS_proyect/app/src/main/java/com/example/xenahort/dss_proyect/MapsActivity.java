@@ -2,15 +2,14 @@ package com.example.xenahort.dss_proyect;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -20,20 +19,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 import retrofit2.Call;
@@ -117,38 +107,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        //Pongo un nuevo estilo al mapa
+        try {
+            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle));
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
+
+        //Añado botones de zoom
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        //Pongo mi ubicacion
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
-        //Pongo la camara es la escuela
+
+        //Pongo la camara en la escuela
         LatLng center = new LatLng(37.1970976248000444, -3.624563798608392);
         CameraPosition cameraPosition = new CameraPosition.Builder().target(center).zoom(16).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         //Pongo la marca de la farmacias
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(37.198366, -3.624976)).title("Farmacia 1"));
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(37.195993, -3.622784)).title("Farmacia 2"));
-        cargarNotificaciones();
-
-
+        cargarFarmacias();
     }
 
-    public void cargarNotificaciones() {
+    public void cargarFarmacias() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://dss-pharmacy.herokuapp.com/").addConverterFactory(GsonConverterFactory.create()).build();
         PostService service = retrofit.create(PostService.class);
-        Call<List<Producto>> call = service.getAllProduct();
+        Call<List<Farmacia>> call = service.getAllPharm();
 
-        call.enqueue(new Callback<List<Producto>>() {
+        call.enqueue(new Callback<List<Farmacia>>() {
             @Override
-            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
-                for (Producto post : response.body()) {
-                    Log.d("myTag", post.getDescription());
+            public void onResponse(Call<List<Farmacia>> call, Response<List<Farmacia>> response) {
+                for (Farmacia post : response.body()) {
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(post.getLatitude(), post.getLongitude())).title(post.getName()));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Producto>> call, Throwable t) {
+            public void onFailure(Call<List<Farmacia>> call, Throwable t) {
             }
         });
     }
