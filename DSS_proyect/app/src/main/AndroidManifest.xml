@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".ListaFarmaciasActivity" />
         <activity android:name=".CompraActivity"></activity>
+        <activity android:name=".MyActivity"></activity>
     </application>
 
 </manifest>

@@ -32,8 +32,8 @@ public class ListaFarmaciasActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemValue = (String) lst.getItemAtPosition(position);
-                Intent intent = new Intent (ListaFarmaciasActivity.this,CompraActivity.class);
-                intent.putExtra("name",itemValue);
+                Intent intent = new Intent(ListaFarmaciasActivity.this, MyActivity.class);
+                intent.putExtra("name", itemValue);
                 startActivityForResult(intent, 0);
             }
         });
