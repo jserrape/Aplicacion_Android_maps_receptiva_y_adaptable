@@ -65,8 +65,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         carro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (MapsActivity.this, ListaFarmaciasActivity.class);
-                intent.putExtra("lista",farmaciasNombres);
+                Intent intent = new Intent(MapsActivity.this, ListaFarmaciasActivity.class);
+                intent.putExtra("lista", farmaciasNombres);
                 startActivityForResult(intent, 0);
             }
         });
@@ -164,20 +164,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onResponse(Call<List<Farmacia>> call, Response<List<Farmacia>> response) {
                 farmaciasNombres = new String[response.body().size()];
-                int i=0;
+                int i = 0;
+                mMap.setInfoWindowAdapter(new InfoFarmaciaCustom(MapsActivity.this));
                 for (Farmacia post : response.body()) {
-                    farmaciasNombres[i]=post.getName();
+                    farmaciasNombres[i] = post.getName();
                     ++i;
-                    MarkerOptions marker =new MarkerOptions().position(new LatLng(post.getLatitude(), post.getLongitude())).title(post.getName());
-                    int height = 130;
-                    int width = 130;
-                    BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ic_farmacia1);
-                    Bitmap b=bitmapdraw.getBitmap();
-                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                    Bitmap b = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_farmacia1)).getBitmap();
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 130, 130, false);
+
+                    String snippet = "Dirección: " + "Calle no se que poner 36"+ "\n" +
+                            "Teléfono: " + "654 58 65 23"+"\n" +
+                            "Web: " + "https://github.com/xenahort"+ "\n" +
+                            "Horario: " + "9:00 a 13:00 y 15:00 a 21:00"+"\n";
+
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(post.getLatitude(), post.getLongitude()))
                             .title(post.getName())
                             .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                            .snippet(snippet)
                     );
                 }
             }
