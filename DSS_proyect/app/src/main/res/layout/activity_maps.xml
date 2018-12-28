@@ -8,7 +8,7 @@
         tools:context=".MapsActivity">
 
 
-        <Button
+        <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_below="@+id/relLayout1"
@@ -16,7 +16,8 @@
             android:layout_marginTop="30dp"
             android:scaleType="centerCrop"
             android:id="@+id/carr"
-            android:background="@drawable/ic_carrito"/>
+            android:background="@drawable/btn"
+            android:src="@drawable/ic_carrito"/>
 
     </fragment>
 

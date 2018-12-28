@@ -3,6 +3,8 @@ package com.example.xenahort.dss_proyect;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -12,10 +14,12 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Boolean mLocationPermissionsGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    private Button carro;
+    private ImageButton carro;
     private String farmaciasNombres[];
 
     @Override
@@ -57,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         getLocationPermission();
 
-        carro = (Button) findViewById(R.id.carr);
+        carro = (ImageButton) findViewById(R.id.carr);
         carro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +168,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 for (Farmacia post : response.body()) {
                     farmaciasNombres[i]=post.getName();
                     ++i;
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(post.getLatitude(), post.getLongitude())).title(post.getName()));
+                    MarkerOptions marker =new MarkerOptions().position(new LatLng(post.getLatitude(), post.getLongitude())).title(post.getName());
+                    int height = 130;
+                    int width = 130;
+                    BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ic_farmacia1);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(post.getLatitude(), post.getLongitude()))
+                            .title(post.getName())
+                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                    );
                 }
             }
 
