@@ -1,8 +1,8 @@
 package com.example.xenahort.dss_proyect;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -10,6 +10,9 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -19,7 +22,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +45,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Boolean mLocationPermissionsGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    private Button carro;
+    private String farmaciasNombres[];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +56,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         getLocationPermission();
+
+        carro = (Button) findViewById(R.id.carr);
+        carro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MapsActivity.this, ListaFarmaciasActivity.class);
+                intent.putExtra("lista",farmaciasNombres);
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 
     private void getLocationPermission() {
@@ -109,14 +124,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         //Pongo un nuevo estilo al mapa
-        try {
+        /*try {
             boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle));
             if (!success) {
                 Log.e(TAG, "Style parsing failed.");
             }
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
-        }
+        }*/
 
         //Añado botones de zoom
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -144,7 +159,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         call.enqueue(new Callback<List<Farmacia>>() {
             @Override
             public void onResponse(Call<List<Farmacia>> call, Response<List<Farmacia>> response) {
+                farmaciasNombres = new String[response.body().size()];
+                int i=0;
                 for (Farmacia post : response.body()) {
+                    farmaciasNombres[i]=post.getName();
+                    ++i;
                     mMap.addMarker(new MarkerOptions().position(new LatLng(post.getLatitude(), post.getLongitude())).title(post.getName()));
                 }
             }
