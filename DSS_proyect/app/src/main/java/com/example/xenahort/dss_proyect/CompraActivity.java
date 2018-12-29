@@ -83,6 +83,7 @@ public class CompraActivity extends Activity implements OnClickListener {
             }else{
                 Intent intent = new Intent(CompraActivity.this, CompraFinalizadaActivity.class);
                 intent.putExtra("Productos", mArrayProducts.toString());
+                intent.putExtra("Farmacia", farmacia);
                 startActivityForResult(intent, 0);
             }
         }

@@ -51,6 +51,7 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
     private GoogleApiClient googleApiClient;
 
     private String producos;
+    private String farmacia;
 
     Button btn;
 
@@ -59,8 +60,8 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra_finalizada);
 
-        producos= getIntent().getExtras().getString("Productos");
-        Toast.makeText(getApplicationContext(), producos, Toast.LENGTH_LONG).show();
+        producos = getIntent().getExtras().getString("Productos");
+        farmacia = getIntent().getExtras().getString("Farmacia");
 
         obtenerDatos();
         ImageView imageView = (ImageView) findViewById(R.id.myImage);
@@ -133,6 +134,7 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
                 jsonObj.put("User_id",account.getId());
                 jsonObj.put("User_name",account.getDisplayName());
                 jsonObj.put("User_email",account.getEmail());
+                jsonObj.put("Farmacia",farmacia);
                 jsonObj.put("Compra",producos);
                 Calendar c = Calendar.getInstance();
                 c.set(Calendar.HOUR_OF_DAY, 0);
