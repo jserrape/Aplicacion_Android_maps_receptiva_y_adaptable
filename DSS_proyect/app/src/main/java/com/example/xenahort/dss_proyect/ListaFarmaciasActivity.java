@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.database.MatrixCursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,8 @@ public class ListaFarmaciasActivity extends AppCompatActivity {
     private ListView lst;
     private ArrayAdapter<String> adaptador;
     private MatrixCursor cursor;
+
+    private Carrito carrito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,14 @@ public class ListaFarmaciasActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemValue = (String) lst.getItemAtPosition(position);
-                Intent intent = new Intent(ListaFarmaciasActivity.this, CompraActivity.class);
+                Intent intent = new Intent(ListaFarmaciasActivity.this, ListaProductosActivity.class);
                 intent.putExtra("name", itemValue);
+                intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }
         });
+
+        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+        Log.d("carrito lista", this.carrito.toString());
     }
 }

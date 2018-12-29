@@ -40,9 +40,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListaFarmaciasActivity" />
-        <activity android:name=".CompraActivity" />
-        <activity android:name=".CompraActivity" />
-        <activity android:name=".CompraFinalizadaActivity"></activity>
+        <activity android:name=".ListaProductosActivity" />
+        <activity android:name=".ListaProductosActivity" />
+        <activity android:name=".CompraFinalizadaActivity" />
+        <activity android:name=".listaProductosCarrito"></activity>
     </application>
 
 </manifest>

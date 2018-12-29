@@ -9,18 +9,47 @@
 
 package com.example.xenahort.dss_proyect;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Carrito {
+public class Carrito implements Serializable {
 
     private String email;
     private List<Producto> productos;
     private final String tipo;
 
-    public Carrito(String ema){
-        this.email=ema;
+    public Carrito(){
         tipo="Reserve";
         this.productos= new ArrayList<Producto>();
+    }
+
+    public void addProducto(Producto pr){
+        this.productos.add(pr);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    @Override
+    public String toString() {
+        return "Carrito{" +
+                "email='" + email + '\'' +
+                ", productos=" + productos +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 }

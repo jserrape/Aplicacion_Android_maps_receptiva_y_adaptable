@@ -57,8 +57,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Boolean mLocationPermissionsGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    private ImageButton carro;
+    private ImageButton farmaciasButton;
+    private ImageButton carritoButton;
     private String farmaciasNombres[];
+
+    private Carrito carrito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +72,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         getLocationPermission();
 
-        carro = (ImageButton) findViewById(R.id.carr);
-        carro.setOnClickListener(new View.OnClickListener() {
+        farmaciasButton = (ImageButton) findViewById(R.id.carr);
+        farmaciasButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, ListaFarmaciasActivity.class);
                 intent.putExtra("lista", farmaciasNombres);
+                intent.putExtra("Carrito", carrito);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+        Log.d("carrito map", this.carrito.toString());
+
+
+        carritoButton = (ImageButton) findViewById(R.id.carrito);
+        carritoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, listaProductosCarrito.class);
+                intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }
         });
@@ -163,43 +181,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //cargarFarmacias();
         PostService mAPIService = ApiUtils.getAPIService();
         mAPIService.getAllPharm().enqueue(new Callback<List<Farmacia>>() {
-            @Override
-            public void onResponse(Call<List<Farmacia>> call, Response<List<Farmacia>> response) {
-                farmaciasNombres = new String[response.body().size()];
-                int i = 0;
-                mMap.setInfoWindowAdapter(new InfoFarmaciaCustom(MapsActivity.this));
-                for (Farmacia post : response.body()) {
-                    farmaciasNombres[i] = post.getName();
-                    ++i;
-                    Bitmap b = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_farmacia1)).getBitmap();
-                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 130, 130, false);
-
-                    String snippet = "Dirección: " + "Calle no se que poner 36"+ "\n" +
-                            "Teléfono: " + "654 58 65 23"+"\n" +
-                            "Web: " + "https://github.com/xenahort"+ "\n" +
-                            "Horario: " + "9:00 a 13:00 y 15:00 a 21:00"+"\n";
-
-                    mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(post.getLatitude(), post.getLongitude()))
-                            .title(post.getName())
-                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                            .snippet(snippet)
-                    );
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Farmacia>> call, Throwable t) {
-            }
-        });
-    }
-
-    public void cargarFarmacias() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://dss-pharmacy.herokuapp.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        GetService service = retrofit.create(GetService.class);
-        Call<List<Farmacia>> call = service.getAllPharm();
-
-        call.enqueue(new Callback<List<Farmacia>>() {
             @Override
             public void onResponse(Call<List<Farmacia>> call, Response<List<Farmacia>> response) {
                 farmaciasNombres = new String[response.body().size()];

@@ -15,6 +15,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,21 +28,26 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CompraActivity extends Activity implements OnClickListener {
+public class ListaProductosActivity extends Activity implements OnClickListener {
 
-    ListView mListView;
-    Button btnShowCheckedItems;
-    MultiSelectionAdapter<Producto> mAdapter;
+    private ListView mListView;
+    private Button btnShowCheckedItems;
+    private MultiSelectionAdapter<Producto> mAdapter;
 
     private String farmacia;
     private ArrayList<Producto> productos;
 
+    private Carrito carrito;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos_tienda);
         cargarProducos();
+
+        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+        Log.d("carrito lista productos", this.carrito.toString());
+        this.carrito.setEmail("aniadidos cosas");
     }
 
     public void cargarProducos() {
@@ -61,7 +67,7 @@ public class CompraActivity extends Activity implements OnClickListener {
                         productos.add(post);
                     }
                 }
-                mAdapter = new MultiSelectionAdapter<>(CompraActivity.this, productos);
+                mAdapter = new MultiSelectionAdapter<>(ListaProductosActivity.this, productos);
                 mListView.setAdapter(mAdapter);
             }
 
@@ -80,9 +86,14 @@ public class CompraActivity extends Activity implements OnClickListener {
             if(mArrayProducts.toString().equals("[]")){
                 Toast.makeText(getApplicationContext(), "Por favor, seleccione algún artículo", Toast.LENGTH_LONG).show();
             }else{
-                Intent intent = new Intent(CompraActivity.this, CompraFinalizadaActivity.class);
-                intent.putExtra("Productos", mArrayProducts.toString());
-                intent.putExtra("Farmacia", farmacia);
+                //Intent intent = new Intent(ListaProductosActivity.this, CompraFinalizadaActivity.class);
+                //intent.putExtra("Productos", mArrayProducts.toString());
+                //intent.putExtra("Farmacia", farmacia);
+                for(int i=0;i<mArrayProducts.size();i++){
+                    carrito.addProducto(mArrayProducts.get(i));
+                }
+                Intent intent = new Intent(ListaProductosActivity.this, MapsActivity.class);
+                intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }
         }

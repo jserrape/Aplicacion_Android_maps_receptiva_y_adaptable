@@ -33,11 +33,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private SignInButton signInButton;
 
+    private Carrito carrito;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.carrito=new Carrito();
+        this.carrito.setEmail("mail.example");
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
 
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             if (result.isSuccess()) {
                 Toast.makeText(this, "Inicio correcto", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             } else {
                 Toast.makeText(this, "No se puede iniciar sesión", Toast.LENGTH_LONG).show();

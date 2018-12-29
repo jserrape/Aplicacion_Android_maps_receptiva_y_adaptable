@@ -9,7 +9,9 @@
 
 package com.example.xenahort.dss_proyect;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Serializable {
 
     private String description;
     private String name;
