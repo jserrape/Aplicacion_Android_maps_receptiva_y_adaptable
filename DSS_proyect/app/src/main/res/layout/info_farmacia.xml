@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:24
+  ~  * Any question send an email to juan.carlos.wow.95@gmail.com
+  ~  * Copyright (c) 2018 . All rights reserved.
+  ~  * Last modified 28/12/18 11:44
+  ~  */
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"

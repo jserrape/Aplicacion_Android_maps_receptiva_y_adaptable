@@ -1,3 +1,12 @@
+/*
+ * *
+ *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Any question send an email to juan.carlos.wow.95@gmail.com
+ *  * Copyright (c) 2018 . All rights reserved.
+ *  * Last modified 29/12/18 15:19
+ *
+ */
+
 package com.example.xenahort.dss_proyect;
 
 import java.util.ArrayList;
@@ -23,7 +32,6 @@ public class CompraActivity extends Activity implements OnClickListener {
 
     ListView mListView;
     Button btnShowCheckedItems;
-    ArrayList<Producto> mProducts;
     MultiSelectionAdapter<Producto> mAdapter;
 
     private String farmacia;
@@ -54,7 +62,7 @@ public class CompraActivity extends Activity implements OnClickListener {
                         productos.add(post);
                     }
                 }
-                mAdapter = new MultiSelectionAdapter<Producto>(CompraActivity.this, productos);
+                mAdapter = new MultiSelectionAdapter<>(CompraActivity.this, productos);
                 mListView.setAdapter(mAdapter);
             }
 

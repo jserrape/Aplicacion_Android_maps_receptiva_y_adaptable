@@ -1,3 +1,12 @@
+/*
+ * *
+ *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:25
+ *  * Any question send an email to juan.carlos.wow.95@gmail.com
+ *  * Copyright (c) 2018 . All rights reserved.
+ *  * Last modified 29/12/18 15:21
+ *
+ */
+
 package com.example.xenahort.dss_proyect;
 
 public class Producto {
@@ -6,10 +15,6 @@ public class Producto {
     private String name;
     private String pharmacy;
     private String price;
-
-    public Producto(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;
@@ -45,6 +50,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + "\t\t\t" + this.price + "€";
     }
 }

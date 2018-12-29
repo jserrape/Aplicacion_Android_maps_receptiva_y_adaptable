@@ -1,8 +1,16 @@
+<!--
+  ~ /**
+  ~  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:25
+  ~  * Any question send an email to juan.carlos.wow.95@gmail.com
+  ~  * Copyright (c) 2018 . All rights reserved.
+  ~  * Last modified 29/12/18 15:15
+  ~  */
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".CompraFinalizadaActivity">
 
     <ImageView

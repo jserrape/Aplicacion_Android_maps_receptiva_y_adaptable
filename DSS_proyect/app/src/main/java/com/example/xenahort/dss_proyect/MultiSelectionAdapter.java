@@ -1,3 +1,12 @@
+/*
+ * *
+ *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Any question send an email to juan.carlos.wow.95@gmail.com
+ *  * Copyright (c) 2018 . All rights reserved.
+ *  * Last modified 29/12/18 12:37
+ *
+ */
+
 package com.example.xenahort.dss_proyect;
 
 import java.util.ArrayList;
@@ -56,7 +65,6 @@ public class MultiSelectionAdapter<T> extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
