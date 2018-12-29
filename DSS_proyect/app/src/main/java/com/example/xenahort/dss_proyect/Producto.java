@@ -7,6 +7,10 @@ public class Producto {
     private String pharmacy;
     private String price;
 
+    public Producto(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -37,5 +41,10 @@ public class Producto {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

@@ -40,6 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListaFarmaciasActivity" />
+        <activity android:name=".CompraActivity" />
         <activity android:name=".CompraActivity"></activity>
     </application>
 
