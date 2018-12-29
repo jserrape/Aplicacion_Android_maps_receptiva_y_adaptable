@@ -24,6 +24,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient googleApiClient;
@@ -45,9 +48,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onClick(View v) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                startActivityForResult(intent,777);
+                startActivityForResult(intent, 777);
             }
         });
+
+
+        /*
+        PostService mAPIService = ApiUtils.getAPIService();
+        mAPIService.crearUsu("jcsp@gmail.com", "Pedro puto amo", "1234").enqueue(new Callback<Producto>() {
+            @Override
+            public void onResponse(Call<Producto> call, retrofit2.Response<Producto> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Producto> call, Throwable t) {
+
+            }
+        });*/
+
     }
 
     @Override
@@ -59,13 +78,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 777) {
-            GoogleSignInResult result= Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if(result.isSuccess()){
-                Toast.makeText(this,"Inicio correcto",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent (this, MapsActivity.class);
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                Toast.makeText(this, "Inicio correcto", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MapsActivity.class);
                 startActivityForResult(intent, 0);
-            }else{
-                Toast.makeText(this,"No se puede iniciar sesión",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "No se puede iniciar sesión", Toast.LENGTH_LONG).show();
             }
         }
     }

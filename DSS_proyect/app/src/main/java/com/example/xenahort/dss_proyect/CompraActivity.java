@@ -15,7 +15,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,7 +40,7 @@ public class CompraActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compra);
+        setContentView(R.layout.activity_productos_tienda);
         cargarProducos();
     }
 
@@ -51,7 +50,7 @@ public class CompraActivity extends Activity implements OnClickListener {
         farmacia = getIntent().getExtras().getString("name");
         productos = new ArrayList<Producto>();
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://dss-pharmacy.herokuapp.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        PostService service = retrofit.create(PostService.class);
+        GetService service = retrofit.create(GetService.class);
         Call<List<Producto>> call = service.getAllProduct();
 
         call.enqueue(new Callback<List<Producto>>() {

@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 
@@ -161,12 +160,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         //Pongo la marca de la farmacias
-        cargarFarmacias();
+        //cargarFarmacias();
+        PostService mAPIService = ApiUtils.getAPIService();
+        mAPIService.getAllPharm().enqueue(new Callback<List<Farmacia>>() {
+            @Override
+            public void onResponse(Call<List<Farmacia>> call, Response<List<Farmacia>> response) {
+                farmaciasNombres = new String[response.body().size()];
+                int i = 0;
+                mMap.setInfoWindowAdapter(new InfoFarmaciaCustom(MapsActivity.this));
+                for (Farmacia post : response.body()) {
+                    farmaciasNombres[i] = post.getName();
+                    ++i;
+                    Bitmap b = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_farmacia1)).getBitmap();
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 130, 130, false);
+
+                    String snippet = "Dirección: " + "Calle no se que poner 36"+ "\n" +
+                            "Teléfono: " + "654 58 65 23"+"\n" +
+                            "Web: " + "https://github.com/xenahort"+ "\n" +
+                            "Horario: " + "9:00 a 13:00 y 15:00 a 21:00"+"\n";
+
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(post.getLatitude(), post.getLongitude()))
+                            .title(post.getName())
+                            .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                            .snippet(snippet)
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Farmacia>> call, Throwable t) {
+            }
+        });
     }
 
     public void cargarFarmacias() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://dss-pharmacy.herokuapp.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        PostService service = retrofit.create(PostService.class);
+        GetService service = retrofit.create(GetService.class);
         Call<List<Farmacia>> call = service.getAllPharm();
 
         call.enqueue(new Callback<List<Farmacia>>() {

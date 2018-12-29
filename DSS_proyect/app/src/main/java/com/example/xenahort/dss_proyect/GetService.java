@@ -1,9 +1,9 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 19:08
+ *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
  *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 29/12/18 19:08
+ *  * Last modified 27/12/18 21:42
  *
  */
 
@@ -17,14 +17,11 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface PostService {
-
-    @POST("/rest/users")
-    @FormUrlEncoded
-    Call<Producto> crearUsu(@Field("email") String email,
-                        @Field("name") String name,
-                        @Field("password") String password);
+public interface GetService {
 
     @GET("/rest/pharmacies")
     Call<List<Farmacia>> getAllPharm();
+
+    @GET("/rest/products")
+    Call<List<Producto>> getAllProduct();
 }
