@@ -69,10 +69,14 @@ public class CompraActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         if(mAdapter != null) {
             ArrayList<Producto> mArrayProducts = mAdapter.getCheckedItems();
-            Log.d(MainActivity.class.getSimpleName(), "Selected Items: " + mArrayProducts.toString());
-            Toast.makeText(getApplicationContext(), "Selected Items: " + mArrayProducts.toString(), Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(CompraActivity.this, CompraFinalizadaActivity.class);
-            startActivityForResult(intent, 0);
+
+            if(mArrayProducts.toString().equals("[]")){
+                Toast.makeText(getApplicationContext(), "Por favor, seleccione algún artículo", Toast.LENGTH_LONG).show();
+            }else{
+                Intent intent = new Intent(CompraActivity.this, CompraFinalizadaActivity.class);
+                intent.putExtra("Productos", mArrayProducts.toString());
+                startActivityForResult(intent, 0);
+            }
         }
     }
 
