@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -70,6 +71,8 @@ public class CompraActivity extends Activity implements OnClickListener {
             ArrayList<Producto> mArrayProducts = mAdapter.getCheckedItems();
             Log.d(MainActivity.class.getSimpleName(), "Selected Items: " + mArrayProducts.toString());
             Toast.makeText(getApplicationContext(), "Selected Items: " + mArrayProducts.toString(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(CompraActivity.this, CompraFinalizadaActivity.class);
+            startActivityForResult(intent, 0);
         }
     }
 
