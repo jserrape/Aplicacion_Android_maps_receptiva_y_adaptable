@@ -14,15 +14,19 @@ import android.widget.Toast;
 
 import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
 import com.example.xenahort.dss_proyect.Comunicacion.GetPostService;
+import com.example.xenahort.dss_proyect.Util.AdminSQLiteOpenHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +36,8 @@ public class Carrito implements Serializable {
     private String email;
     private List<Producto> productos;
     private final String tipo;
+
+    public String pr="";
 
     public Carrito() {
         tipo = "Purchase";
@@ -81,34 +87,32 @@ public class Carrito implements Serializable {
     }
 
     public String generarJSON() {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        String prod = "";
+        pr = "";
         for (int i = 0; i < productos.size(); i++) {
-            prod += productos.get(i).getName() + ". ";
-            prod += productos.get(i).getDescription() + ". ";
-            prod += productos.get(i).getPharmacy() + ". ";
-            prod += productos.get(i).getPrice() + "EUR x ";
-            prod += productos.get(i).getUnidad() + "u;";
+            pr += productos.get(i).getName() + ". ";
+            pr += productos.get(i).getDescription() + ". ";
+            pr += productos.get(i).getPharmacy() + ". ";
+            pr += productos.get(i).getPrice() + "EUR x ";
+            pr += productos.get(i).getUnidad() + "u;";
         }
         JSONObject jsonObj = new JSONObject();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy_HH:mm:ss");
+        String currentDateandTime = sdf.format(new Date());
         try {
             jsonObj.put("email", email);
             jsonObj.put("type", tipo);
-            jsonObj.put("date", c.getTime());
-            jsonObj.put("products", prod);
+            jsonObj.put("date", currentDateandTime);
+            jsonObj.put("products", pr);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        hacerPOST(c.getTime().toString(),prod);
+        hacerPOST(currentDateandTime, pr);
         return jsonObj.toString();
     }
 
     private void hacerPOST(String fecha, String pro) {
         GetPostService mAPIService = ApiUtils.getAPIService();
-        mAPIService.crearPedido(email,tipo,fecha,pro).enqueue(new Callback<Respuesta>() {
+        mAPIService.crearPedido(email, tipo, fecha, pro).enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, retrofit2.Response<Respuesta> response) {
                 //Log.d("caro lista protos carro", this.carrito.toString());

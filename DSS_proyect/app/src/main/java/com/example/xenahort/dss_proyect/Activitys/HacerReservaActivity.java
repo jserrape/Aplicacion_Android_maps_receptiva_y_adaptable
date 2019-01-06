@@ -9,17 +9,22 @@
 
 package com.example.xenahort.dss_proyect.Activitys;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.R;
+import com.example.xenahort.dss_proyect.Util.AdminSQLiteOpenHelper;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -32,6 +37,9 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class HacerReservaActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -126,6 +134,43 @@ public class HacerReservaActivity extends AppCompatActivity implements GoogleApi
                     startActivityForResult(intent, 0);
                 }
             });
+            Log.d("SQLLITE", "--------");
+            insertarCarritoBBDD();
+            selectBBDD();
+            Log.d("SQLLITE", "--------");
+        }
+    }
+
+    private void insertarCarritoBBDD() {
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy_HH:mm:ss");
+        String currentDateandTime = sdf.format(new Date());
+
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+
+        registro.put("date", currentDateandTime);
+        registro.put("email", carrito.getEmail());
+        registro.put("products", carrito.pr);
+
+        bd.insert("pedido", null, registro);
+        bd.close();
+    }
+
+    private void selectBBDD() {
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+
+        SQLiteDatabase bd = admin.getWritableDatabase();
+
+        Cursor c = bd.rawQuery("select date, email, products from pedido", null);
+        if (c.moveToFirst()) {
+            do {
+                String column1 = c.getString(0);
+                String column2 = c.getString(1);
+                String column3 = c.getString(2);
+                Log.d("SQLLITE", column1 + " " + column2 + " " + column3);
+            } while (c.moveToNext());
         }
     }
 }

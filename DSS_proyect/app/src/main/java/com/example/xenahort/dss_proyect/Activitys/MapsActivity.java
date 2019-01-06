@@ -63,6 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private ImageButton farmaciasButton;
     private ImageButton carritoButton;
+    private ImageButton historialButton;
+
     private String farmaciasNombres[];
 
     private Carrito carrito;
@@ -96,6 +98,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapsActivity.this, ListaProductosCarritoActivity.class);
+                intent.putExtra("Carrito", carrito);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        historialButton= (ImageButton) findViewById(R.id.registro);
+        historialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, HistorialActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }

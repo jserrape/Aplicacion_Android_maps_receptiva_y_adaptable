@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Juan Carlos Serrano Pérez on 6/01/19 20:45
+  ~  * Any question send an email to juan.carlos.wow.95@gmail.com
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 6/01/19 20:45
+  ~  */
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.HistorialActivity">
+
+</android.support.constraint.ConstraintLayout>
