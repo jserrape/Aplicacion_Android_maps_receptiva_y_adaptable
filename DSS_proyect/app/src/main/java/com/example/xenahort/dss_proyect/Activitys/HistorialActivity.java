@@ -9,16 +9,75 @@
 
 package com.example.xenahort.dss_proyect.Activitys;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
+import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.R;
+import com.example.xenahort.dss_proyect.Util.AdminSQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistorialActivity extends AppCompatActivity {
+
+    private Button btnVolver;
+
+    private ListView lst;
+
+    private Carrito carrito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
+
+        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+
+        btnVolver = (Button) findViewById(R.id.btnvolvermapf2);
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HistorialActivity.this, MapsActivity.class);
+                intent.putExtra("Carrito", carrito);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        selectBBDD();
+    }
+
+    private void selectBBDD() {
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        List<String> list= new ArrayList<String>();
+
+        SQLiteDatabase bd = admin.getWritableDatabase();
+
+        Cursor c = bd.rawQuery("select date, email, products from pedido", null);
+        if (c.moveToFirst()) {
+            do {
+                list.add(" Día "+c.getString(0).replaceAll("_",", hora "));
+                //String column1 = c.getString(0);
+                //String column2 = c.getString(1);
+                //String column3 = c.getString(2);
+                //Log.d("SQLLITE", column1 + " " + column2 + " " + column3);
+            } while (c.moveToNext());
+        }
+        String fechas[]=new String[list.size()];
+        for(int i=0;i<list.size();i++){
+            fechas[i]=list.get(i);
+        }
+
+        lst = findViewById(R.id.listhistorial);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, fechas);
+        lst.setAdapter(adapter);
     }
 }
