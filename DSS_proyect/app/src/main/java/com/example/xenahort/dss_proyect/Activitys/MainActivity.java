@@ -17,7 +17,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
+import com.example.xenahort.dss_proyect.Comunicacion.GetPostService;
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
+import com.example.xenahort.dss_proyect.ElementosGestion.Producto;
 import com.example.xenahort.dss_proyect.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -25,6 +28,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -54,20 +60,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
-
-        /*
-        PostService mAPIService = ApiUtils.getAPIService();
-        mAPIService.crearUsu("jcsp@gmail.com", "Pedro puto amo", "1234").enqueue(new Callback<Producto>() {
-            @Override
-            public void onResponse(Call<Producto> call, retrofit2.Response<Producto> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<Producto> call, Throwable t) {
-
-            }
-        });*/
 
     }
 

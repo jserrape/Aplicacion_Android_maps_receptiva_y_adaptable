@@ -33,11 +33,6 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Calendar;
-
 public class CompraFinalizadaActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     public final static int WHITE = 0xFFFFFFFF;
@@ -60,7 +55,7 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
         carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
 
 
-        obtenerDatos();
+        realizarPOST();
         ImageView imageView = (ImageView) findViewById(R.id.myImage);
         try {
             Bitmap bitmap = encodeAsBitmap(STR);
@@ -108,7 +103,7 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
 
     }
 
-    public void obtenerDatos(){
+    public void realizarPOST(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);

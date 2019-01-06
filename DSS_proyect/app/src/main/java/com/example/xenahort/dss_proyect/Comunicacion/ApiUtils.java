@@ -15,7 +15,7 @@ public class ApiUtils {
 
     public static final String BASE_URL = "https://dss-pharmacy.herokuapp.com/";
 
-    public static PostService getAPIService() {
-        return RetrofitClient.getClient(BASE_URL).create(PostService.class);
+    public static GetPostService getAPIService() {
+        return RetrofitClient.getClient(BASE_URL).create(GetPostService.class);
     }
 }

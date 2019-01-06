@@ -29,7 +29,7 @@ import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.ElementosGestion.Farmacia;
 import com.example.xenahort.dss_proyect.Util.InfoFarmaciaCustom;
-import com.example.xenahort.dss_proyect.Comunicacion.PostService;
+import com.example.xenahort.dss_proyect.Comunicacion.GetPostService;
 import com.example.xenahort.dss_proyect.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -183,7 +183,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Pongo la marca de la farmacias
         //cargarFarmacias();
-        PostService mAPIService = ApiUtils.getAPIService();
+        GetPostService mAPIService = ApiUtils.getAPIService();
         mAPIService.getAllPharm().enqueue(new Callback<List<Farmacia>>() {
             @Override
             public void onResponse(Call<List<Farmacia>> call, Response<List<Farmacia>> response) {

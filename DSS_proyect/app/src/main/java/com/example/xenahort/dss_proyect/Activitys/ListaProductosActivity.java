@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
-import com.example.xenahort.dss_proyect.Comunicacion.PostService;
+import com.example.xenahort.dss_proyect.Comunicacion.GetPostService;
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.Util.MultiSelectionAdapter;
 import com.example.xenahort.dss_proyect.ElementosGestion.Producto;
@@ -64,7 +64,7 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
         textView.setText("Farmacia: "+farmacia);
         productos = new ArrayList<Producto>();
 
-        PostService mAPIService = ApiUtils.getAPIService();
+        GetPostService mAPIService = ApiUtils.getAPIService();
         mAPIService.getAllProduct().enqueue(new Callback<List<Producto>>() {
             @Override
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
@@ -92,9 +92,6 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
             if (mArrayProducts.toString().equals("[]")) {
                 Toast.makeText(getApplicationContext(), "Por favor, seleccione algún artículo", Toast.LENGTH_LONG).show();
             } else {
-                //Intent intent = new Intent(ListaProductosActivity.this, CompraFinalizadaActivity.class);
-                //intent.putExtra("Productos", mArrayProducts.toString());
-                //intent.putExtra("Farmacia", farmacia);
                 for (int i = 0; i < productos.size(); i++) {
                     for (int j = 0; j < mArrayProducts.size(); j++) {
                         Log.d("carrito lista productos", "."+productos.get(i).toString()+"=="+mArrayProducts.get(j)+".");
@@ -108,7 +105,6 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
                         }
                     }
                 }
-
                 Intent intent = new Intent(ListaProductosActivity.this, MapsActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);

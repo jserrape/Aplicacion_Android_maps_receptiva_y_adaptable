@@ -20,13 +20,20 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface PostService {
+public interface GetPostService {
 
     @POST("/rest/users")
     @FormUrlEncoded
     Call<Producto> crearUsu(@Field("email") String email,
                             @Field("name") String name,
                             @Field("password") String password);
+
+    @POST("/rest/orders")
+    @FormUrlEncoded
+    Call<Producto> crearPedido(@Field("email") String email,
+                               @Field("type") String type,
+                               @Field("date") String date,
+                               @Field("cart") String products);
 
     @GET("/rest/pharmacies")
     Call<List<Farmacia>> getAllPharm();
