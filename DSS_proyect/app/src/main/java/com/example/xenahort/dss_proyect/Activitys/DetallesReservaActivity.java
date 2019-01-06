@@ -23,6 +23,8 @@ import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.R;
 import com.example.xenahort.dss_proyect.Util.AdminSQLiteOpenHelper;
 
+import java.util.regex.Pattern;
+
 public class DetallesReservaActivity extends AppCompatActivity {
 
     private TextView textViewTitulo;
@@ -42,7 +44,7 @@ public class DetallesReservaActivity extends AppCompatActivity {
 
         textViewTitulo = (TextView) findViewById(R.id.fechaped);
         String fecha = getIntent().getExtras().getString("Fecha");
-        textViewTitulo.setText("     Pedido:  " + fecha);
+        textViewTitulo.setText("       Pedido:  " + fecha.replaceAll("_", " "));
 
         textViewMail = (TextView) findViewById(R.id.mailped);
         textViewDetalles = (TextView) findViewById(R.id.detallesaped);
@@ -73,10 +75,22 @@ public class DetallesReservaActivity extends AppCompatActivity {
                 column1 = c.getString(0);
                 column2 = c.getString(1);
                 column3 = c.getString(2);
-                Log.d("SQLLITE", column1 + " " + column2 + " " + column3);
+                Log.d("SQLLITE", column3);
             } while (c.moveToNext());
         }
+        textViewMail.setText("     Email:\n     " + column2);
+        String texto = "";
+        String[] productos = column3.replaceAll("EUR", "€").split(";");
+        for (int i = 0; i < productos.length; i++) {
+            Log.d("SQLLITE", productos[i]);
+            String[] parts = productos[i].split(Pattern.quote("."));
+            Log.d("SQLLITE", parts.length + "");
+            texto += "    " + parts[2] + ":\n";
+            texto += "       " + parts[0] + parts[3];
 
-        textViewTitulo.setText("     Email:  " + column2);
+            texto += "\n\n";
+        }
+
+        textViewDetalles.setText(texto);
     }
 }
