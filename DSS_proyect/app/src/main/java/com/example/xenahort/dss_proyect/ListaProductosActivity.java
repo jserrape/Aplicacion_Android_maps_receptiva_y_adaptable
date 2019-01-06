@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -54,6 +55,8 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
         mListView = (ListView) findViewById(android.R.id.list);
         btnShowCheckedItems = (Button) findViewById(R.id.btnShowCheckedItems);
         farmacia = getIntent().getExtras().getString("name");
+        TextView textView = (TextView) findViewById(R.id.simpleTextView3);
+        textView.setText("Farmacia: "+farmacia);
         productos = new ArrayList<Producto>();
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://dss-pharmacy.herokuapp.com/").addConverterFactory(GsonConverterFactory.create()).build();
         GetService service = retrofit.create(GetService.class);
