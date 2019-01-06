@@ -1,26 +1,24 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:04
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 29/12/18 14:54
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 29/12/18 16:14
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.Activitys;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.example.xenahort.dss_proyect.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -37,7 +35,6 @@ import com.google.zxing.common.BitMatrix;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CompraFinalizadaActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {

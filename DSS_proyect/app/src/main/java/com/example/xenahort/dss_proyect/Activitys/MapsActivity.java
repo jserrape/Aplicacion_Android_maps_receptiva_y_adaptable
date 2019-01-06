@@ -1,13 +1,13 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:04
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 28/12/18 11:55
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 29/12/18 22:07
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.Activitys;
 
 import android.Manifest;
 import android.content.Intent;
@@ -25,6 +25,12 @@ import android.view.View;
 import android.widget.ImageButton;
 
 
+import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
+import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
+import com.example.xenahort.dss_proyect.ElementosGestion.Farmacia;
+import com.example.xenahort.dss_proyect.Util.InfoFarmaciaCustom;
+import com.example.xenahort.dss_proyect.Comunicacion.PostService;
+import com.example.xenahort.dss_proyect.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -43,8 +49,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -91,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         carritoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, listaProductosCarrito.class);
+                Intent intent = new Intent(MapsActivity.this, listaProductosCarritoActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }

@@ -1,13 +1,13 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:04
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 29/12/18 15:19
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 6/01/19 12:55
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.Activitys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
+import com.example.xenahort.dss_proyect.Comunicacion.GetService;
+import com.example.xenahort.dss_proyect.Util.MultiSelectionAdapter;
+import com.example.xenahort.dss_proyect.ElementosGestion.Producto;
+import com.example.xenahort.dss_proyect.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,13 +1,13 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:04
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 27/12/18 22:09
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 29/12/18 21:49
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.Activitys;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,15 +17,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
+import com.example.xenahort.dss_proyect.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 

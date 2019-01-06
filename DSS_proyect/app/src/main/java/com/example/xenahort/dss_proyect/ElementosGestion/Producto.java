@@ -1,13 +1,13 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:25
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:07
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 29/12/18 15:21
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 6/01/19 12:03
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.ElementosGestion;
 
 import java.io.Serializable;
 

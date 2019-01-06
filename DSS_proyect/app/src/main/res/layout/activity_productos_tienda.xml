@@ -20,7 +20,7 @@
         android:layout_marginTop="10dp"
         android:textSize="25sp"
         android:textColor="#f00"
-        android:text="Farmacia:" />
+        android:text="Inventario" />
 
     <ListView
         android:id="@android:id/list"
@@ -37,8 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
         android:text="Añadir al carrito"
         />
 </RelativeLayout>

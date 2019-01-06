@@ -30,20 +30,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".Activitys.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListaFarmaciasActivity" />
-        <activity android:name=".ListaProductosActivity" />
-        <activity android:name=".ListaProductosActivity" />
-        <activity android:name=".CompraFinalizadaActivity" />
-        <activity android:name=".listaProductosCarrito"></activity>
+        <activity android:name=".Activitys.ListaFarmaciasActivity" />
+        <activity android:name=".Activitys.ListaProductosActivity" />
+        <activity android:name=".Activitys.ListaProductosActivity" />
+        <activity android:name=".Activitys.CompraFinalizadaActivity" />
+        <activity android:name=".Activitys.listaProductosCarritoActivity"></activity>
     </application>
 
 </manifest>

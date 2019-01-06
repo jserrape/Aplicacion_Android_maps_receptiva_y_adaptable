@@ -1,13 +1,13 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:07
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 29/12/18 12:37
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 29/12/18 15:26
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.Util;
 
 import java.util.ArrayList;
 
@@ -22,6 +22,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import com.example.xenahort.dss_proyect.R;
 
 
 public class MultiSelectionAdapter<T> extends BaseAdapter {

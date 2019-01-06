@@ -1,13 +1,16 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:06
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 27/12/18 21:42
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 29/12/18 20:42
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.Comunicacion;
+
+import com.example.xenahort.dss_proyect.ElementosGestion.Farmacia;
+import com.example.xenahort.dss_proyect.ElementosGestion.Producto;
 
 import java.util.List;
 

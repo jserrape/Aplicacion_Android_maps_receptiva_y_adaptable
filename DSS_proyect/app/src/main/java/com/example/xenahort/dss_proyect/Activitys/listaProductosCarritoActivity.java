@@ -1,13 +1,13 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 29/12/18 22:06
+ *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:05
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2018 . All rights reserved.
- *  * Last modified 29/12/18 22:06
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 6/01/19 12:58
  *
  */
 
-package com.example.xenahort.dss_proyect;
+package com.example.xenahort.dss_proyect.Activitys;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +18,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class listaProductosCarrito extends AppCompatActivity {
+import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
+import com.example.xenahort.dss_proyect.R;
+
+public class listaProductosCarritoActivity extends AppCompatActivity {
 
     private Carrito carrito;
 
@@ -48,7 +51,7 @@ public class listaProductosCarrito extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(listaProductosCarrito.this, MapsActivity.class);
+                Intent intent = new Intent(listaProductosCarritoActivity.this, MapsActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }
@@ -57,7 +60,7 @@ public class listaProductosCarrito extends AppCompatActivity {
         btnComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(listaProductosCarrito.this, ListaFarmaciasActivity.class);
+                //Intent intent = new Intent(listaProductosCarritoActivity.this, ListaFarmaciasActivity.class);
                 //intent.putExtra("Carrito", carrito);
                 //startActivityForResult(intent, 0);
             }
