@@ -93,7 +93,6 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
             } else {
                 for (int i = 0; i < productos.size(); i++) {
                     for (int j = 0; j < mArrayProducts.size(); j++) {
-                        Log.d("carrito lista productos", "."+productos.get(i).toString()+"=="+mArrayProducts.get(j)+".");
                         if (productos.get(i).toString().equals(mArrayProducts.get(j).toString())) {
                             if(carrito.yaEsta(mArrayProducts.get(j))){
                                 carrito.incrementarUnidad(mArrayProducts.get(j));

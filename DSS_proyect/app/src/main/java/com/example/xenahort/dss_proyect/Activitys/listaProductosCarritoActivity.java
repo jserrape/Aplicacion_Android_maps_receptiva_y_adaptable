@@ -39,7 +39,6 @@ public class ListaProductosCarritoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_productos_carrito);
 
         carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
-        Log.d("caro lista protos carro", this.carrito.toString());
 
         btnVolver = (Button) findViewById(R.id.btnvolver);
         btnVolver.setOnClickListener(new View.OnClickListener() {

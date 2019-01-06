@@ -13,9 +13,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
+public class AdminSQLite extends SQLiteOpenHelper {
 
-    public AdminSQLiteOpenHelper(Context context, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
+    public AdminSQLite(Context context, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, nombre, factory, version);
     }
 

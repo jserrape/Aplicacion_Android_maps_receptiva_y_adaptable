@@ -9,24 +9,17 @@
 
 package com.example.xenahort.dss_proyect.ElementosGestion;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
 import com.example.xenahort.dss_proyect.Comunicacion.GetPostService;
-import com.example.xenahort.dss_proyect.Util.AdminSQLiteOpenHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -115,7 +108,7 @@ public class Carrito implements Serializable {
         mAPIService.crearPedido(email, tipo, fecha, pro).enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, retrofit2.Response<Respuesta> response) {
-                //Log.d("caro lista protos carro", this.carrito.toString());
+
             }
 
             @Override
