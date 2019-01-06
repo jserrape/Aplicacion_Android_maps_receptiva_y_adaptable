@@ -23,8 +23,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
+import com.example.xenahort.dss_proyect.Comunicacion.PostService;
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
-import com.example.xenahort.dss_proyect.Comunicacion.GetService;
 import com.example.xenahort.dss_proyect.Util.MultiSelectionAdapter;
 import com.example.xenahort.dss_proyect.ElementosGestion.Producto;
 import com.example.xenahort.dss_proyect.R;
@@ -32,8 +33,6 @@ import com.example.xenahort.dss_proyect.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListaProductosActivity extends Activity implements OnClickListener {
 
@@ -64,11 +63,9 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
         TextView textView = (TextView) findViewById(R.id.simpleTextView3);
         textView.setText("Farmacia: "+farmacia);
         productos = new ArrayList<Producto>();
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://dss-pharmacy.herokuapp.com/").addConverterFactory(GsonConverterFactory.create()).build();
-        GetService service = retrofit.create(GetService.class);
-        Call<List<Producto>> call = service.getAllProduct();
 
-        call.enqueue(new Callback<List<Producto>>() {
+        PostService mAPIService = ApiUtils.getAPIService();
+        mAPIService.getAllProduct().enqueue(new Callback<List<Producto>>() {
             @Override
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
                 for (Producto post : response.body()) {

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
@@ -29,6 +30,8 @@ public class ListaFarmaciasActivity extends AppCompatActivity {
     private MatrixCursor cursor;
 
     private Carrito carrito;
+
+    private Button btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,15 @@ public class ListaFarmaciasActivity extends AppCompatActivity {
         });
 
         carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
-        Log.d("carrito lista", this.carrito.toString());
+
+        btnVolver = (Button) findViewById(R.id.btnvolvermapf);
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListaFarmaciasActivity.this, MapsActivity.class);
+                intent.putExtra("Carrito", carrito);
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 }

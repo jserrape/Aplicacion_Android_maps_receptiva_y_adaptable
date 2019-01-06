@@ -29,10 +29,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
-        android:layout_above="@+id/btnvolvermap" />
+        android:layout_above="@+id/btnvolvermapf" />
 
     <Button
-        android:id="@+id/btnvolvermap"
+        android:id="@+id/btnvolvermapf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -30,4 +30,7 @@ public interface PostService {
 
     @GET("/rest/pharmacies")
     Call<List<Farmacia>> getAllPharm();
+
+    @GET("/rest/products")
+    Call<List<Producto>> getAllProduct();
 }

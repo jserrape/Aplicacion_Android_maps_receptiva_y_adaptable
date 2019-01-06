@@ -1,9 +1,9 @@
 /*
  * *
- *  * Created by Juan Carlos Serrano Pérez on 6/01/19 13:04
+ *  * Created by Juan Carlos Serrano Pérez on 29/12/18 15:26
  *  * Any question send an email to juan.carlos.wow.95@gmail.com
- *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 29/12/18 16:14
+ *  * Copyright (c) 2018 . All rights reserved.
+ *  * Last modified 29/12/18 14:54
  *
  */
 
@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -47,8 +48,7 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
 
     private GoogleApiClient googleApiClient;
 
-    private String producos;
-    private String farmacia;
+    private Carrito carrito;
 
     Button btn;
 
@@ -57,8 +57,8 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra_finalizada);
 
-        producos = getIntent().getExtras().getString("Productos");
-        farmacia = getIntent().getExtras().getString("Farmacia");
+        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+
 
         obtenerDatos();
         ImageView imageView = (ImageView) findViewById(R.id.myImage);
@@ -74,6 +74,8 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CompraFinalizadaActivity.this, MapsActivity.class);
+                carrito=new Carrito();
+                intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }
         });
@@ -126,22 +128,10 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
-            JSONObject jsonObj = new JSONObject();
-            try {
-                jsonObj.put("User_id",account.getId());
-                jsonObj.put("User_name",account.getDisplayName());
-                jsonObj.put("User_email",account.getEmail());
-                jsonObj.put("Farmacia",farmacia);
-                jsonObj.put("Compra",producos);
-                Calendar c = Calendar.getInstance();
-                c.set(Calendar.HOUR_OF_DAY, 0);
-                c.set(Calendar.MINUTE, 0);
-                c.set(Calendar.SECOND, 0);
-                jsonObj.put("Fecha",c.getTime());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            STR = jsonObj.toString();
+            carrito.setEmail(account.getEmail());
+            STR = carrito.generarJSON();
+
+
         }
     }
 }

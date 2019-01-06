@@ -9,8 +9,13 @@
 
 package com.example.xenahort.dss_proyect.ElementosGestion;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Carrito implements Serializable {
@@ -20,7 +25,7 @@ public class Carrito implements Serializable {
     private final String tipo;
 
     public Carrito(){
-        tipo="Reserve";
+        tipo="Purchase";
         this.productos= new ArrayList<Producto>();
     }
 
@@ -44,6 +49,10 @@ public class Carrito implements Serializable {
         this.productos = productos;
     }
 
+    public void eliminarPosicion(int n){
+        productos.remove(n);
+    }
+
     public boolean yaEsta(Producto pr){
         for(int i=0;i<productos.size();i++){
             if(productos.get(i).toString().equals(pr.toString())){
@@ -60,6 +69,31 @@ public class Carrito implements Serializable {
                 return;
             }
         }
+    }
+
+    public String generarJSON(){
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        String prod="";
+        for(int i=0;i<productos.size();i++){
+            prod+= productos.get(i).getName()+". ";
+            prod+= productos.get(i).getDescription()+". ";
+            prod+= productos.get(i).getPharmacy()+". ";
+            prod+= productos.get(i).getPrice()+"EUR x ";
+            prod+= productos.get(i).getUnidad()+"u;";
+        }
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("email",email);
+            jsonObj.put("type",tipo);
+            jsonObj.put("date",c.getTime());
+            jsonObj.put("products",prod);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObj.toString();
     }
 
     @Override
