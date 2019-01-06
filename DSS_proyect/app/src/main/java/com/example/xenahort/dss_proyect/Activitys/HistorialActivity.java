@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -57,27 +58,34 @@ public class HistorialActivity extends AppCompatActivity {
 
     private void selectBBDD() {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        List<String> list= new ArrayList<String>();
+        final List<String> list= new ArrayList<String>();
 
         SQLiteDatabase bd = admin.getWritableDatabase();
 
         Cursor c = bd.rawQuery("select date, email, products from pedido", null);
         if (c.moveToFirst()) {
             do {
-                list.add(" Día "+c.getString(0).replaceAll("_",", hora "));
-                //String column1 = c.getString(0);
-                //String column2 = c.getString(1);
-                //String column3 = c.getString(2);
-                //Log.d("SQLLITE", column1 + " " + column2 + " " + column3);
+                list.add(c.getString(0));
             } while (c.moveToNext());
         }
         String fechas[]=new String[list.size()];
         for(int i=0;i<list.size();i++){
-            fechas[i]=list.get(i);
+            fechas[i]=" Día "+list.get(i).replaceAll("_",", hora ");
         }
 
         lst = findViewById(R.id.listhistorial);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, fechas);
         lst.setAdapter(adapter);
+
+        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String itemValue = (String) lst.getItemAtPosition(position);
+                Intent intent = new Intent(HistorialActivity.this, DetallesReservaActivity.class);
+                intent.putExtra("Carrito", carrito);
+                intent.putExtra("Fecha", list.get(position));
+                startActivityForResult(intent, 0);
+            }
+        });
     }
 }

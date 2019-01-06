@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Juan Carlos Serrano Pérez on 6/01/19 21:56
+  ~  * Any question send an email to juan.carlos.wow.95@gmail.com
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 6/01/19 21:56
+  ~  */
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
+
+        <TextView
+        android:id="@+id/fechaped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:textColor="#f00"
+        android:text="     Pedido:" />
+
+        <TextView
+            android:id="@+id/mailped"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:text="MAIL DEL PEDIDO" />
+
+        <TextView
+            android:id="@+id/detallesaped"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:text="DETALLES DEL PEDIDO" />
+
+        <Button
+            android:id="@+id/btnvolvermapf3"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Volver"
+            />
+
+    </TableLayout>
+</ScrollView>

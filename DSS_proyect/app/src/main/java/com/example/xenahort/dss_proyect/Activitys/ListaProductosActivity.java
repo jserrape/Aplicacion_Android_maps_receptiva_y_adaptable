@@ -52,7 +52,6 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
         cargarProducos();
 
         carrito = (Carrito) getIntent().getSerializableExtra("Carrito");
-        Log.d("carrito lista productos", this.carrito.toString());
         this.carrito.setEmail("aniadidos cosas");
     }
 

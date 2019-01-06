@@ -44,7 +44,8 @@
         <activity android:name=".Activitys.ListaProductosActivity" />
         <activity android:name=".Activitys.HacerReservaActivity" />
         <activity android:name=".Activitys.ListaProductosCarritoActivity" />
-        <activity android:name=".Activitys.HistorialActivity"></activity>
+        <activity android:name=".Activitys.HistorialActivity" />
+        <activity android:name=".Activitys.DetallesReservaActivity"></activity>
     </application>
 
 </manifest>
