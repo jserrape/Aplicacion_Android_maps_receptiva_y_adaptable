@@ -17,6 +17,19 @@ public class Producto implements Serializable {
     private String name;
     private String pharmacy;
     private String price;
+    private int unidad;
+
+    public int getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(int unidad) {
+        this.unidad = unidad;
+    }
+
+    public void incrementarUnidad(){
+        ++this.unidad;
+    }
 
     public String getDescription() {
         return description;
@@ -52,6 +65,6 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return this.name + "\t\t\t" + this.price + "€";
+        return this.name + "    " + this.price + "€";
     }
 }

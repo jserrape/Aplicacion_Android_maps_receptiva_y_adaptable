@@ -44,6 +44,24 @@ public class Carrito implements Serializable {
         this.productos = productos;
     }
 
+    public boolean yaEsta(Producto pr){
+        for(int i=0;i<productos.size();i++){
+            if(productos.get(i).toString().equals(pr.toString())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void incrementarUnidad(Producto pr){
+        for(int i=0;i<productos.size();i++){
+            if(productos.get(i).toString().equals(pr.toString())){
+                productos.get(i).incrementarUnidad();
+                return;
+            }
+        }
+    }
+
     @Override
     public String toString() {
         return "Carrito{" +

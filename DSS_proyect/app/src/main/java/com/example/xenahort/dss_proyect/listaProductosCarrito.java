@@ -31,7 +31,7 @@ public class listaProductosCarrito extends AppCompatActivity {
 
         String productos[]=new String[carrito.getProductos().size()];
         for(int i=0;i<carrito.getProductos().size();i++){
-            productos[i]=carrito.getProductos().get(i).getName();
+            productos[i]=carrito.getProductos().get(i).getName()+" X "+carrito.getProductos().get(i).getUnidad()+"u     "+(carrito.getProductos().get(i).getUnidad()*Integer.valueOf(carrito.getProductos().get(i).getPrice()));
         }
 
         lst = findViewById(R.id.listacarro);

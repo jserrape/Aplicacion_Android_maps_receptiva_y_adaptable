@@ -45,7 +45,7 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
         setContentView(R.layout.activity_productos_tienda);
         cargarProducos();
 
-        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+        carrito = (Carrito) getIntent().getSerializableExtra("Carrito");
         Log.d("carrito lista productos", this.carrito.toString());
         this.carrito.setEmail("aniadidos cosas");
     }
@@ -80,18 +80,29 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             ArrayList<Producto> mArrayProducts = mAdapter.getCheckedItems();
 
-            if(mArrayProducts.toString().equals("[]")){
+            if (mArrayProducts.toString().equals("[]")) {
                 Toast.makeText(getApplicationContext(), "Por favor, seleccione algún artículo", Toast.LENGTH_LONG).show();
-            }else{
+            } else {
                 //Intent intent = new Intent(ListaProductosActivity.this, CompraFinalizadaActivity.class);
                 //intent.putExtra("Productos", mArrayProducts.toString());
                 //intent.putExtra("Farmacia", farmacia);
-                for(int i=0;i<mArrayProducts.size();i++){
-                    carrito.addProducto(mArrayProducts.get(i));
+                for (int i = 0; i < productos.size(); i++) {
+                    for (int j = 0; j < mArrayProducts.size(); j++) {
+                        Log.d("carrito lista productos", "."+productos.get(i).toString()+"=="+mArrayProducts.get(j)+".");
+                        if (productos.get(i).toString().equals(mArrayProducts.get(j).toString())) {
+                            if(carrito.yaEsta(mArrayProducts.get(j))){
+                                carrito.incrementarUnidad(mArrayProducts.get(j));
+                            }else{
+                                mArrayProducts.get(j).setUnidad(1);
+                                carrito.addProducto(mArrayProducts.get(j));
+                            }
+                        }
+                    }
                 }
+
                 Intent intent = new Intent(ListaProductosActivity.this, MapsActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
