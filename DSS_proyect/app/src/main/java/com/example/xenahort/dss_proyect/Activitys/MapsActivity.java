@@ -95,7 +95,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         carritoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, listaProductosCarritoActivity.class);
+                Intent intent = new Intent(MapsActivity.this, ListaProductosCarritoActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }
@@ -196,7 +196,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Bitmap b = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_farmacia1)).getBitmap();
                     Bitmap smallMarker = Bitmap.createScaledBitmap(b, 130, 130, false);
 
-                    String snippet = "Dirección: " + "Calle no se que poner 36"+ "\n" +
+                    String snippet = "Dirección: " + "Calle San Francisco de Sales 36"+ "\n" +
                             "Teléfono: " + "654 58 65 23"+"\n" +
                             "Web: " + "https://github.com/xenahort"+ "\n" +
                             "Horario: " + "9:00 a 13:00 y 15:00 a 21:00"+"\n";

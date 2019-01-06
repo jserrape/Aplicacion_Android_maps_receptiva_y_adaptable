@@ -34,7 +34,6 @@ public class MultiSelectionAdapter<T> extends BaseAdapter {
     SparseBooleanArray mSparseBooleanArray;
 
     public MultiSelectionAdapter(Context context, ArrayList<T> list) {
-
         this.mContext = context;
         mInflater = LayoutInflater.from(mContext);
         mSparseBooleanArray = new SparseBooleanArray();
@@ -43,7 +42,6 @@ public class MultiSelectionAdapter<T> extends BaseAdapter {
     }
 
     public ArrayList<T> getCheckedItems() {
-
         ArrayList<T> mTempArry = new ArrayList<T>();
         for (int i = 0; i < mList.size(); i++) {
             if (mSparseBooleanArray.get(i)) {

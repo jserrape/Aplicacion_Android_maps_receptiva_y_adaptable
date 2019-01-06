@@ -24,7 +24,7 @@ import android.widget.ListView;
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.R;
 
-public class listaProductosCarritoActivity extends AppCompatActivity {
+public class ListaProductosCarritoActivity extends AppCompatActivity {
 
     private Carrito carrito;
 
@@ -45,7 +45,7 @@ public class listaProductosCarritoActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(listaProductosCarritoActivity.this, MapsActivity.class);
+                Intent intent = new Intent(ListaProductosCarritoActivity.this, MapsActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }
@@ -54,7 +54,7 @@ public class listaProductosCarritoActivity extends AppCompatActivity {
         btnComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(listaProductosCarritoActivity.this, CompraFinalizadaActivity.class);
+                Intent intent = new Intent(ListaProductosCarritoActivity.this, HacerReservaActivity.class);
                 intent.putExtra("Carrito", carrito);
                 startActivityForResult(intent, 0);
             }

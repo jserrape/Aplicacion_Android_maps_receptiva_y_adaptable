@@ -11,6 +11,7 @@ package com.example.xenahort.dss_proyect.Comunicacion;
 
 import com.example.xenahort.dss_proyect.ElementosGestion.Farmacia;
 import com.example.xenahort.dss_proyect.ElementosGestion.Producto;
+import com.example.xenahort.dss_proyect.ElementosGestion.Respuesta;
 
 import java.util.List;
 
@@ -22,22 +23,16 @@ import retrofit2.http.POST;
 
 public interface GetPostService {
 
-    @POST("/rest/users")
-    @FormUrlEncoded
-    Call<Producto> crearUsu(@Field("email") String email,
-                            @Field("name") String name,
-                            @Field("password") String password);
-
-    @POST("/rest/orders")
-    @FormUrlEncoded
-    Call<Producto> crearPedido(@Field("email") String email,
-                               @Field("type") String type,
-                               @Field("date") String date,
-                               @Field("cart") String products);
-
     @GET("/rest/pharmacies")
     Call<List<Farmacia>> getAllPharm();
 
     @GET("/rest/products")
     Call<List<Producto>> getAllProduct();
+
+    @POST("/rest/orders")
+    @FormUrlEncoded
+    Call<Respuesta> crearPedido(@Field("email") String email,
+                                @Field("type") String type,
+                                @Field("date") String date,
+                                @Field("cart") String products);
 }

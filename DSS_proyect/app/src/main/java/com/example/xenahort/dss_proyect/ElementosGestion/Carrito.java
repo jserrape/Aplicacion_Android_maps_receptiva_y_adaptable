@@ -9,6 +9,9 @@
 
 package com.example.xenahort.dss_proyect.ElementosGestion;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.xenahort.dss_proyect.Comunicacion.ApiUtils;
 import com.example.xenahort.dss_proyect.Comunicacion.GetPostService;
 
@@ -105,14 +108,14 @@ public class Carrito implements Serializable {
 
     private void hacerPOST(String fecha, String pro) {
         GetPostService mAPIService = ApiUtils.getAPIService();
-        mAPIService.crearPedido(email,tipo,fecha,pro).enqueue(new Callback<Producto>() {
+        mAPIService.crearPedido(email,tipo,fecha,pro).enqueue(new Callback<Respuesta>() {
             @Override
-            public void onResponse(Call<Producto> call, retrofit2.Response<Producto> response) {
-
+            public void onResponse(Call<Respuesta> call, retrofit2.Response<Respuesta> response) {
+                //Log.d("caro lista protos carro", this.carrito.toString());
             }
 
             @Override
-            public void onFailure(Call<Producto> call, Throwable t) {
+            public void onFailure(Call<Respuesta> call, Throwable t) {
 
             }
         });

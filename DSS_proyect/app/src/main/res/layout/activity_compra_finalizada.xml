@@ -11,7 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.CompraFinalizadaActivity">
+    tools:context=".Activitys.HacerReservaActivity">
 
     <TextView
         android:id="@+id/simpleTextView4"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:textSize="25sp"
         android:textColor="#f00"
         android:text="Código Qr de reserva" />

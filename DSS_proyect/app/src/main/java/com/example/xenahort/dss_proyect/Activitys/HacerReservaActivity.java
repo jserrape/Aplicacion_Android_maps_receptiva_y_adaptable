@@ -33,7 +33,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
-public class CompraFinalizadaActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class HacerReservaActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     public final static int WHITE = 0xFFFFFFFF;
     public final static int BLACK = 0xFF000000;
@@ -52,28 +52,11 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compra_finalizada);
 
-        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+        carrito = (Carrito) getIntent().getSerializableExtra("Carrito");
 
 
         realizarPOST();
-        ImageView imageView = (ImageView) findViewById(R.id.myImage);
-        try {
-            Bitmap bitmap = encodeAsBitmap(STR);
-            imageView.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
 
-        btn = (Button) findViewById(R.id.btnMap);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CompraFinalizadaActivity.this, MapsActivity.class);
-                carrito=new Carrito();
-                intent.putExtra("Carrito", carrito);
-                startActivityForResult(intent, 0);
-            }
-        });
     }
 
     Bitmap encodeAsBitmap(String str) throws WriterException {
@@ -103,7 +86,7 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
 
     }
 
-    public void realizarPOST(){
+    public void realizarPOST() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
@@ -125,8 +108,24 @@ public class CompraFinalizadaActivity extends AppCompatActivity implements Googl
             GoogleSignInAccount account = result.getSignInAccount();
             carrito.setEmail(account.getEmail());
             STR = carrito.generarJSON();
+            ImageView imageView = (ImageView) findViewById(R.id.myImage);
+            try {
+                Bitmap bitmap = encodeAsBitmap(STR);
+                imageView.setImageBitmap(bitmap);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
 
-
+            btn = (Button) findViewById(R.id.btnMap);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HacerReservaActivity.this, MapsActivity.class);
+                    carrito = new Carrito();
+                    intent.putExtra("Carrito", carrito);
+                    startActivityForResult(intent, 0);
+                }
+            });
         }
     }
 }
