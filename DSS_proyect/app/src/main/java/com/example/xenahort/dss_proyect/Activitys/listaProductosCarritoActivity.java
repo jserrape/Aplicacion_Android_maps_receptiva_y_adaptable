@@ -38,7 +38,7 @@ public class ListaProductosCarritoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_productos_carrito);
 
-        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
+        carrito = (Carrito) getIntent().getSerializableExtra("Carrito");
 
         btnVolver = (Button) findViewById(R.id.btnvolver);
         btnVolver.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,10 @@ public class ListaProductosCarritoActivity extends AppCompatActivity {
         crearLista();
     }
 
-    public void dialogoEliminarProducto(final int position){
+    /**
+     * Muestra un dialogo solicitando eliminar el producto seleccionado
+     */
+    public void dialogoEliminarProducto(final int position) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setMessage("¿Quieres eliminar el producto del carrito?");
         builder1.setCancelable(true);
@@ -89,10 +92,13 @@ public class ListaProductosCarritoActivity extends AppCompatActivity {
         alert11.show();
     }
 
-    private void crearLista(){
-        String productos[]=new String[carrito.getProductos().size()];
-        for(int i=0;i<carrito.getProductos().size();i++){
-            productos[i]=carrito.getProductos().get(i).getName()+" X "+carrito.getProductos().get(i).getUnidad()+"u     "+(carrito.getProductos().get(i).getUnidad()*Integer.valueOf(carrito.getProductos().get(i).getPrice())+"€");
+    /**
+     * Crea una lista con todos los productos del carrito
+     */
+    private void crearLista() {
+        String productos[] = new String[carrito.getProductos().size()];
+        for (int i = 0; i < carrito.getProductos().size(); i++) {
+            productos[i] = carrito.getProductos().get(i).getName() + " X " + carrito.getProductos().get(i).getUnidad() + "u     " + (carrito.getProductos().get(i).getUnidad() * Integer.valueOf(carrito.getProductos().get(i).getPrice()) + "€");
         }
 
         lst = findViewById(R.id.listacarro);
@@ -104,7 +110,7 @@ public class ListaProductosCarritoActivity extends AppCompatActivity {
                 dialogoEliminarProducto(position);
             }
         });
-        if(carrito.getProductos().isEmpty()){
+        if (carrito.getProductos().isEmpty()) {
             btnComprar.setEnabled(false);
         }
     }

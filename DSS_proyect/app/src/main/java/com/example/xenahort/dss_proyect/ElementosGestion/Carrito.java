@@ -34,7 +34,7 @@ public class Carrito implements Serializable {
 
     public Carrito() {
         tipo = "Purchase";
-        this.productos = new ArrayList<Producto>();
+        this.productos = new ArrayList<>();
     }
 
     public void addProducto(Producto pr) {
@@ -53,14 +53,17 @@ public class Carrito implements Serializable {
         return productos;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
-    }
 
+    /**
+     * Elimina el producto del carrito de una posicion
+     */
     public void eliminarPosicion(int n) {
         productos.remove(n);
     }
 
+    /**
+     * Comprueba si un producto esa en el carrito
+     */
     public boolean yaEsta(Producto pr) {
         for (int i = 0; i < productos.size(); i++) {
             if (productos.get(i).toString().equals(pr.toString())) {
@@ -70,6 +73,9 @@ public class Carrito implements Serializable {
         return false;
     }
 
+    /**
+     * Incrementa la unidad de un producto
+     */
     public void incrementarUnidad(Producto pr) {
         for (int i = 0; i < productos.size(); i++) {
             if (productos.get(i).toString().equals(pr.toString())) {
@@ -79,6 +85,9 @@ public class Carrito implements Serializable {
         }
     }
 
+    /**
+     * Genera un JSON con el contenido del carrito
+     */
     public String generarJSON() {
         pr = "";
         for (int i = 0; i < productos.size(); i++) {
@@ -103,6 +112,9 @@ public class Carrito implements Serializable {
         return jsonObj.toString();
     }
 
+    /**
+     * Realiza una peticion POST con el contenido del carrito
+     */
     private void hacerPOST(String fecha, String pro) {
         GetPostService mAPIService = ApiUtils.getAPIService();
         mAPIService.crearPedido(email, tipo, fecha, pro).enqueue(new Callback<Respuesta>() {

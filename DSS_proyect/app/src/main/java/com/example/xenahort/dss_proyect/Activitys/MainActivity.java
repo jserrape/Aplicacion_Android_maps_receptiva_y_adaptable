@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.carrito=new Carrito();
+        this.carrito = new Carrito();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
 
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
@@ -63,11 +63,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
+    /**
+     * Muestra un Toast si se ha producido un error en la conexion
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Toast.makeText(this, "Error de conexion", Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Recibe el resulado del inicio de sesion y muestra un error de conexion o nos lleva a la
+     * actividad MapsActivity si los datos de inicio son correctos.
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

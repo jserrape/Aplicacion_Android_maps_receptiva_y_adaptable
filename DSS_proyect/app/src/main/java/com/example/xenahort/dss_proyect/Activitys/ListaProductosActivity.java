@@ -55,13 +55,16 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
         this.carrito.setEmail("aniadidos cosas");
     }
 
+    /**
+     * Obtiene todos los producos y los muestra en una lista
+     */
     public void cargarProducos() {
         mListView = (ListView) findViewById(android.R.id.list);
         btnShowCheckedItems = (Button) findViewById(R.id.btnShowCheckedItems);
         farmacia = getIntent().getExtras().getString("name");
         TextView textView = (TextView) findViewById(R.id.simpleTextView3);
         textView.setText("Farmacia: "+farmacia);
-        productos = new ArrayList<Producto>();
+        productos = new ArrayList<>();
 
         GetPostService mAPIService = ApiUtils.getAPIService();
         mAPIService.getAllProduct().enqueue(new Callback<List<Producto>>() {
@@ -83,6 +86,9 @@ public class ListaProductosActivity extends Activity implements OnClickListener 
         btnShowCheckedItems.setOnClickListener(this);
     }
 
+    /**
+     * Añade todos los productos seleccionados al carrito
+     */
     @Override
     public void onClick(View v) {
         if (mAdapter != null) {

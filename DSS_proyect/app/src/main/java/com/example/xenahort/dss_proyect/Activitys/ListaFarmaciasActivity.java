@@ -26,13 +26,14 @@ import com.example.xenahort.dss_proyect.R;
 public class ListaFarmaciasActivity extends AppCompatActivity {
 
     private ListView lst;
-    private ArrayAdapter<String> adaptador;
-    private MatrixCursor cursor;
 
     private Carrito carrito;
 
     private Button btnVolver;
 
+    /**
+     * Obtiene todas las farmacias y las muestra en una lista
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.xenahort.dss_proyect.ElementosGestion.Carrito;
 import com.example.xenahort.dss_proyect.R;
@@ -41,17 +42,13 @@ import java.util.Date;
 
 public class HacerReservaActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    public final static int WHITE = 0xFFFFFFFF;
-    public final static int BLACK = 0xFF000000;
-    public final static int WIDTH = 400;
-    public final static int HEIGHT = 400;
-    public static String STR = "A string to be encoded as QR code";
+    private final static int WIDTH = 400;
+    private final static int HEIGHT = 400;
+    private static String STR = "A string to be encoded as QR code";
 
     private GoogleApiClient googleApiClient;
 
     private Carrito carrito;
-
-    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +60,11 @@ public class HacerReservaActivity extends AppCompatActivity implements GoogleApi
         realizarPOST();
     }
 
+    /**
+     * Devuelve un objeto Bitmap con la imagen Qr
+     *
+     * @throws WriterException
+     */
     private Bitmap encodeAsBitmap(String str) throws WriterException {
         BitMatrix result;
         try {
@@ -77,7 +79,7 @@ public class HacerReservaActivity extends AppCompatActivity implements GoogleApi
         for (int y = 0; y < height; y++) {
             int offset = y * width;
             for (int x = 0; x < width; x++) {
-                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+                pixels[offset + x] = result.get(x, y) ? 0xFF000000 : 0xFFFFFFFF;
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -85,11 +87,17 @@ public class HacerReservaActivity extends AppCompatActivity implements GoogleApi
         return bitmap;
     }
 
+    /**
+     * Muestra un Toast si se ha producido un error en la conexion
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Toast.makeText(this, "Error de conexion", Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Realiza una peicion POST al servidor con los datos de la reserva
+     */
     public void realizarPOST() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
@@ -107,6 +115,10 @@ public class HacerReservaActivity extends AppCompatActivity implements GoogleApi
         }
     }
 
+    /**
+     * Obtiene el email de haber iniciado sesion con Google, lo añade al carrito, solicita el POST y lo añade a la BBDD
+     * @param result
+     */
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
@@ -120,7 +132,7 @@ public class HacerReservaActivity extends AppCompatActivity implements GoogleApi
                 e.printStackTrace();
             }
 
-            btn = (Button) findViewById(R.id.btnMap);
+            Button btn = (Button) findViewById(R.id.btnMap);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -134,6 +146,9 @@ public class HacerReservaActivity extends AppCompatActivity implements GoogleApi
         }
     }
 
+    /**
+     * Inserta la información del carrito con la bbdd como un nuevo pedido
+     */
     private void insertarCarritoBBDD() {
         AdminSQLite admin = new AdminSQLite(this, "administracion", null, 1);
 

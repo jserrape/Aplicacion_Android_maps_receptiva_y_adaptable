@@ -12,6 +12,7 @@ package com.example.xenahort.dss_proyect.Activitys;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,10 +61,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private Boolean mLocationPermissionsGranted = false;
 
-    private ImageButton farmaciasButton;
-    private ImageButton carritoButton;
-    private ImageButton historialButton;
-
     private String farmaciasNombres[];
 
     private Carrito carrito;
@@ -76,7 +74,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         getLocationPermission();
 
-        farmaciasButton = (ImageButton) findViewById(R.id.carr);
+        carrito = (Carrito) getIntent().getSerializableExtra("Carrito");
+
+        ImageButton farmaciasButton = (ImageButton) findViewById(R.id.carr);
         farmaciasButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,9 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        carrito= (Carrito) getIntent().getSerializableExtra("Carrito");
-
-        carritoButton = (ImageButton) findViewById(R.id.carrito);
+        ImageButton carritoButton = (ImageButton) findViewById(R.id.carrito);
         carritoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        historialButton= (ImageButton) findViewById(R.id.registro);
+        ImageButton historialButton = (ImageButton) findViewById(R.id.registro);
         historialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +108,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    /**
+     * Solicita acceso a la ubicacion del usuario
+     */
     private void getLocationPermission() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
@@ -124,19 +125,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * Al generar el mapa: añade los botones de zoom, añade la ubicación del usuario, mueve la camara
+     * a la escuela y añade las farmacias
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        //Pongo un nuevo estilo al mapa
-        /*try {
-            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.mapstyle));
-            if (!success) {
-                Log.e(TAG, "Style parsing failed.");
-            }
-        } catch (Resources.NotFoundException e) {
-            Log.e(TAG, "Can't find style. Error: ", e);
-        }*/
 
         //Añado botones de zoom
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -153,7 +148,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         //Pongo la marca de la farmacias
-        //cargarFarmacias();
         GetPostService mAPIService = ApiUtils.getAPIService();
         mAPIService.getAllPharm().enqueue(new Callback<List<Farmacia>>() {
             @Override
@@ -167,10 +161,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Bitmap b = ((BitmapDrawable) getResources().getDrawable(R.drawable.ic_farmacia1)).getBitmap();
                     Bitmap smallMarker = Bitmap.createScaledBitmap(b, 130, 130, false);
 
-                    String snippet = "Dirección: " + "Calle San Francisco de Sales 36"+ "\n" +
-                            "Teléfono: " + "654 58 65 23"+"\n" +
-                            "Web: " + "https://github.com/xenahort"+ "\n" +
-                            "Horario: " + "9:00 a 13:00 y 15:00 a 21:00"+"\n";
+                    String snippet = "Dirección: " + "Calle San Francisco de Sales 36" + "\n" +
+                            "Teléfono: " + "654 58 65 23" + "\n" +
+                            "Web: " + "https://github.com/xenahort" + "\n" +
+                            "Horario: " + "9:00 a 13:00 y 15:00 a 21:00" + "\n";
 
                     mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(post.getLatitude(), post.getLongitude()))

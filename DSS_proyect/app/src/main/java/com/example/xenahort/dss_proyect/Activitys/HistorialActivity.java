@@ -55,6 +55,9 @@ public class HistorialActivity extends AppCompatActivity {
         selectBBDD();
     }
 
+    /**
+     * Realiza un select en la BBDD para extraer todas las reservas y mostrarlas en una lista
+     */
     private void selectBBDD() {
         AdminSQLite admin = new AdminSQLite(this, "administracion", null, 1);
         final List<String> list= new ArrayList<String>();

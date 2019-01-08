@@ -40,11 +40,9 @@ public class DetallesReservaActivity extends AppCompatActivity {
 
     private Carrito carrito;
 
-    public final static int WHITE = 0xFFFFFFFF;
-    public final static int BLACK = 0xFF000000;
-    public final static int WIDTH = 400;
-    public final static int HEIGHT = 400;
-    public static String STR = "A string to be encoded as QR code";
+    private final static int WIDTH = 200;
+    private final static int HEIGHT = 200;
+    private static String STR = "A string to be encoded as QR code";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +73,10 @@ public class DetallesReservaActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Extrae el pedido de la tabla pedido con un fecha y lo muestra
+     *
+     */
     private void selectBBDD(String fecha) {
         AdminSQLite admin = new AdminSQLite(this, "administracion", null, 1);
         SQLiteDatabase bd = admin.getWritableDatabase();
@@ -87,7 +89,7 @@ public class DetallesReservaActivity extends AppCompatActivity {
                 column1 = c.getString(0);
                 column2 = c.getString(1);
                 column3 = c.getString(2);
-                STR="date:"+column1+"; products:"+column3+"; email:"+column2;
+                STR = "date:" + column1 + "; products:" + column3 + "; email:" + column2;
             } while (c.moveToNext());
         }
         textViewMail.setText("     Email:\n     " + column2);
@@ -99,11 +101,13 @@ public class DetallesReservaActivity extends AppCompatActivity {
             texto += "       " + parts[0] + parts[3];
             texto += "\n\n";
         }
-
         textViewDetalles.setText(texto);
     }
 
-    private void crearQr(){
+    /**
+     * Genera un codigo Qr
+     */
+    private void crearQr() {
         ImageView imageView = (ImageView) findViewById(R.id.myImage2);
         try {
             Bitmap bitmap = encodeAsBitmap(STR);
@@ -113,7 +117,12 @@ public class DetallesReservaActivity extends AppCompatActivity {
         }
     }
 
-    Bitmap encodeAsBitmap(String str) throws WriterException {
+    /**
+     * Devuelve un objeto Bitmap con la imagen Qr
+     *
+     * @throws WriterException
+     */
+    private Bitmap encodeAsBitmap(String str) throws WriterException {
         BitMatrix result;
         try {
             result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, WIDTH, HEIGHT, null);
@@ -127,7 +136,7 @@ public class DetallesReservaActivity extends AppCompatActivity {
         for (int y = 0; y < height; y++) {
             int offset = y * width;
             for (int x = 0; x < width; x++) {
-                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+                pixels[offset + x] = result.get(x, y) ? 0xFF000000 : 0xFFFFFFFF;
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
