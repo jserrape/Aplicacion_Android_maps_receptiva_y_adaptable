@@ -9,3 +9,7 @@ Problem setting:
 Complete development of an app in Java/Android or C++/IOS (client part), which allows app users to search a drug in the disclosed catalogue of a consortium of pharmacies. The application will easily integrate with standard geographical location applications (e.g.: Google Maps). 
 
 Finally, a version of the app as a Web application that will allow the pharmacy or an authorized dealer to access the pharmaceutical products catalogue and to download the app from the Web site will be implemented.
+
+## Diagrama UML
+
+![UML](DOC/diagrama.png)
