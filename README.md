@@ -41,7 +41,7 @@ En la actividad central del mapa, si pulsamos el botón central iremos a la acti
 
 En caso de no desear un producto lo podemos seleccionar y se nos mostrará un diálogo preguntándonos si queremos eliminarlo del carrito.
 
-![img](DOC/)
+![img](DOC/Carrito.png)
 
 Una vez pulsamos el botón comprar se procederá a hacer la reserva de los productos e iremos a una nueva actividad  en la que se nos mostrará un código Qr como el siguiente a modo de recibo que contiene elementos como nuestro email, tipo de transacción, fecha en la que se ha realizado y el contenido del carrito.
 
